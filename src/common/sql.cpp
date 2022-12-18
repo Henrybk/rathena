@@ -79,17 +79,23 @@ struct SqlStmt
 /// Allocates and initializes a new Sql handle.
 Sql* Sql_Malloc(void)
 {
-	Sql* self;
+    Sql* self;
 
-	CREATE(self, Sql, 1);
-	mysql_init(&self->handle);
-	StringBuf_Init(&self->buf);
-	self->lengths = NULL;
-	self->result = NULL;
-	self->keepalive = INVALID_TIMER;
-	my_bool reconnect = 1;
-	mysql_options(&self->handle, MYSQL_OPT_RECONNECT, &reconnect);
-	return self;
+    CREATE(self, Sql, 1);
+    mysql_init(&self->handle);
+    StringBuf_Init(&self->buf);
+    self->lengths = NULL;
+    self->result = NULL;
+    self->keepalive = INVALID_TIMER;
+    my_bool reconnect = 1;
+    mysql_options(&self->handle, MYSQL_OPT_RECONNECT, &reconnect);
+	
+	// MySQL 8 tem um bug que não desativa SSL, esse fix permite que o rathena se conecte mesmo assim
+	// Fonte: https://rathena.org/board/topic/131339-can%E2%80%99t-connect-to-mysql-server/
+    int sslmode = 1;
+    mysql_options(&self->handle, MYSQL_OPT_SSL_MODE, &sslmode);
+	
+    return self;
 }
 
 
