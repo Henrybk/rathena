@@ -4982,6 +4982,12 @@ BUILDIN_FUNC(close)
 	if( !script_rid2sd(sd) )
 		return SCRIPT_CMD_SUCCESS;
 
+	npc_data* nd = map_id2nd( st->oid );
+
+	if( nd != nullptr && nd->dynamicnpc.owner_char_id != 0 ){
+		nd->dynamicnpc.last_interaction = gettick();
+	}
+
 	const char* command = script_getfuncname( st );
 
 	if( !st->mes_active ) {
@@ -10344,6 +10350,12 @@ BUILDIN_FUNC(end)
 	sd = map_id2sd(st->rid);
 
 	st->state = END;
+
+	npc_data* nd = map_id2nd( st->oid );
+
+	if( nd != nullptr && nd->dynamicnpc.owner_char_id != 0 ){
+		nd->dynamicnpc.last_interaction = gettick();
+	}
 
 	if( st->mes_active )
 		st->mes_active = 0;
@@ -16167,19 +16179,19 @@ BUILDIN_FUNC(getmapxy)
 				bl = map_id2bl(st->oid);
 			break;
 		case BL_PET:	//Get Pet Position
-			if (sd->pd && ((script_isstring(st, 6) && script_nick2sd(6, sd)) || script_mapid2sd(6, sd)))
+			if (((script_isstring(st, 6) && script_nick2sd(6, sd)) || script_mapid2sd(6, sd)) && sd->pd)
 				bl = &sd->pd->bl;
 			break;
 		case BL_HOM:	//Get Homun Position
-			if (sd->hd && ((script_isstring(st, 6) && script_nick2sd(6, sd)) || script_mapid2sd(6, sd)))
+			if (((script_isstring(st, 6) && script_nick2sd(6, sd)) || script_mapid2sd(6, sd)) && sd->hd)
 				bl = &sd->hd->bl;
 			break;
 		case BL_MER: //Get Mercenary Position
-			if (sd->md && ((script_isstring(st, 6) && script_nick2sd(6, sd)) || script_mapid2sd(6, sd)))
+			if (((script_isstring(st, 6) && script_nick2sd(6, sd)) || script_mapid2sd(6, sd)) && sd->md)
 				bl = &sd->md->bl;
 			break;
 		case BL_ELEM: //Get Elemental Position
-			if (sd->ed && ((script_isstring(st, 6) && script_nick2sd(6, sd)) || script_mapid2sd(6, sd)))
+			if (((script_isstring(st, 6) && script_nick2sd(6, sd)) || script_mapid2sd(6, sd)) && sd->ed)
 				bl = &sd->ed->bl;
 			break;
 		default:
@@ -26257,6 +26269,11 @@ BUILDIN_FUNC(mob_setidleevent){
 
 BUILDIN_FUNC( openstylist ){
 #if PACKETVER >= 20151104
+	if( !battle_config.feature_stylist ){
+		ShowError( "buildin_openstylist: stylist is disabled.\n" );
+		return SCRIPT_CMD_FAILURE;
+	}
+
 	map_session_data* sd;
 
 	if( !script_charid2sd( 2, sd ) ){
