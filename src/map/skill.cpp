@@ -1637,6 +1637,9 @@ int skill_additional_effect(struct block_list* src, struct block_list *bl, uint1
 	case NPC_BLEEDING:
 		sc_start(src,bl,SC_BLEEDING,(20*skill_lv),skill_lv,skill_get_time2(skill_id,skill_lv));
 		break;
+	case NPC_BLEEDING2:
+		sc_start(src,bl,SC_BLEEDING,(50+10*skill_lv),skill_lv,skill_get_time2(skill_id,skill_lv));
+		break;
 	case NPC_CHANGEUNDEAD:
 		sc_start(src, bl, SC_CHANGEUNDEAD, (10 * skill_lv), skill_lv, skill_get_time2(skill_id, skill_lv));
 		break;
@@ -1645,6 +1648,9 @@ int skill_additional_effect(struct block_list* src, struct block_list *bl, uint1
 		break;
 	case NPC_ICEBREATH:
 		sc_start(src,bl,SC_FREEZE,70,skill_lv,skill_get_time2(skill_id,skill_lv));
+		break;
+	case NPC_ICEBREATH2:
+		sc_start(src,bl,SC_FREEZE,100,skill_lv,skill_get_time2(skill_id,skill_lv));
 		break;
 	case NPC_MENTALBREAKER:
 		{	//Based on observations by Tharis, Mental Breaker should do SP damage
@@ -1774,6 +1780,28 @@ int skill_additional_effect(struct block_list* src, struct block_list *bl, uint1
 		break;
 	case NPC_HELLJUDGEMENT:
 		sc_start(src,bl,SC_CURSE,100,skill_lv,skill_get_time2(skill_id,skill_lv));
+		break;
+	case NPC_HELLJUDGEMENT2:
+		switch(rnd()%6) {
+		case 0:
+			sc_start(src,bl,SC_SLEEP,100,skill_lv,skill_get_time2(skill_id,skill_lv));
+			break;
+		case 1:
+			sc_start(src,bl,SC_CONFUSION,100,skill_lv,skill_get_time2(skill_id,skill_lv));
+			break;
+		case 2:
+			sc_start(src,bl,SC_HALLUCINATION,100,skill_lv,skill_get_time2(skill_id,skill_lv));
+			break;
+		case 3:
+			sc_start(src,bl,SC_STUN,100,skill_lv,skill_get_time2(skill_id,skill_lv));
+			break;
+		case 4:
+			sc_start(src,bl,SC_FEAR,100,skill_lv,skill_get_time2(skill_id,skill_lv));
+			break;
+		default:
+			sc_start(src,bl,SC_CURSE,100,skill_lv,skill_get_time2(skill_id,skill_lv));
+			break;
+		}
 		break;
 	case NPC_CRITICALWOUND:
 		sc_start(src,bl,SC_CRITICALWOUND,100,skill_lv,skill_get_time2(skill_id,skill_lv));
@@ -5130,6 +5158,7 @@ int skill_castend_damage_id (struct block_list* src, struct block_list *bl, uint
 	case HFLI_MOON:	//[orn]
 	case HFLI_SBR44:	//[orn]
 	case NPC_BLEEDING:
+	case NPC_BLEEDING2:
 	case NPC_CRITICALWOUND:
 	case NPC_HELLPOWER:
 	case RK_SONICWAVE:
@@ -5330,6 +5359,7 @@ int skill_castend_damage_id (struct block_list* src, struct block_list *bl, uint
 	case NPC_DARKNESSBREATH:
 	case NPC_FIREBREATH:
 	case NPC_ICEBREATH:
+	case NPC_ICEBREATH2:
 	case NPC_THUNDERBREATH:
 	case AG_STORM_CANNON:
 	case AG_CRIMSON_ARROW:
@@ -5508,6 +5538,7 @@ int skill_castend_damage_id (struct block_list* src, struct block_list *bl, uint
 	case NPC_PULSESTRIKE:
 	case NPC_PULSESTRIKE2:
 	case NPC_HELLJUDGEMENT:
+	case NPC_HELLJUDGEMENT2:
 	case NPC_VAMPIRE_GIFT:
 	case NPC_MAXPAIN_ATK:
 	case NPC_JACKFROST:
@@ -8477,6 +8508,7 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, ui
 	case NC_INFRAREDSCAN:
 	case NPC_VAMPIRE_GIFT:
 	case NPC_HELLJUDGEMENT:
+	case NPC_HELLJUDGEMENT2:
 	case NPC_PULSESTRIKE:
 	case LG_MOONSLASHER:
 		skill_castend_damage_id(src, src, skill_id, skill_lv, tick, flag);
@@ -9057,15 +9089,15 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, ui
 				if( skill_lv == 1 )
 					pc_randomwarp(sd,CLR_TELEPORT);
 				else
-					pc_setpos(sd,sd->status.save_point.map,sd->status.save_point.x,sd->status.save_point.y,CLR_TELEPORT);
+					pc_setpos( sd, mapindex_name2id( sd->status.save_point.map ), sd->status.save_point.x, sd->status.save_point.y, CLR_TELEPORT );
 				break;
 			}
 
 			clif_skill_nodamage(src,bl,skill_id,skill_lv,1);
 			if( skill_lv == 1 && skill_id != ALL_ODINS_RECALL )
-				clif_skill_warppoint(sd,skill_id,skill_lv, (unsigned short)-1,0,0,0);
+				clif_skill_warppoint( sd, skill_id, skill_lv, "Random" );
 			else
-				clif_skill_warppoint(sd,skill_id,skill_lv, (unsigned short)-1,sd->status.save_point.map,0,0);
+				clif_skill_warppoint( sd, skill_id, skill_lv, "Random", sd->status.save_point.map );
 		} else
 			unit_warp(bl,-1,-1,-1,CLR_TELEPORT);
 		break;
@@ -10445,13 +10477,21 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, ui
 			break;
 		}
 	case NPC_WIDEBLEEDING:
+	case NPC_WIDEBLEEDING2:
 	case NPC_WIDECONFUSE:
+	case NPC_WIDECONFUSE2:
 	case NPC_WIDECURSE:
+	case NPC_WIDECURSE2:
 	case NPC_WIDEFREEZE:
+	case NPC_WIDEFREEZE2:
 	case NPC_WIDESLEEP:
+	case NPC_WIDESLEEP2:
 	case NPC_WIDESILENCE:
+	case NPC_WIDESILENCE2:
 	case NPC_WIDESTONE:
+	case NPC_WIDESTONE2:
 	case NPC_WIDESTUN:
+	case NPC_WIDESTUN2:
 	case NPC_SLOWCAST:
 	case NPC_WIDEHELLDIGNITY:
 	case NPC_WIDEHEALTHFEAR:
@@ -13604,9 +13644,9 @@ int skill_castend_pos2(struct block_list* src, int x, int y, uint16 skill_id, ui
 		if(sd)
 		{
 			clif_skill_warppoint(sd, skill_id, skill_lv, sd->status.save_point.map,
-				(skill_lv >= 2) ? sd->status.memo_point[0].map : 0,
-				(skill_lv >= 3) ? sd->status.memo_point[1].map : 0,
-				(skill_lv >= 4) ? sd->status.memo_point[2].map : 0
+				(skill_lv >= 2) ? sd->status.memo_point[0].map : "",
+				(skill_lv >= 3) ? sd->status.memo_point[1].map : "",
+				(skill_lv >= 4) ? sd->status.memo_point[2].map : ""
 			);
 		}
 		if( sc && sc->getSCE(SC_CURSEDCIRCLE_ATKER) ) //Should only remove after the skill has been casted.
@@ -14243,14 +14283,14 @@ int skill_castend_map (map_session_data *sd, uint16 skill_id, const char *mapnam
 		if(strcmp(mapname,"Random") == 0)
 			pc_randomwarp(sd,CLR_TELEPORT);
 		else if (sd->menuskill_val > 1 || skill_id == ALL_ODINS_RECALL) //Need lv2 to be able to warp here.
-			pc_setpos(sd,sd->status.save_point.map,sd->status.save_point.x,sd->status.save_point.y,CLR_TELEPORT);
+			pc_setpos( sd, mapindex_name2id( sd->status.save_point.map ),sd->status.save_point.x, sd->status.save_point.y, CLR_TELEPORT );
 
 		clif_refresh_storagewindow(sd);
 		break;
 
 	case AL_WARP:
 		{
-			const struct point *p[4];
+			const struct s_point_str *p[4];
 			std::shared_ptr<s_skill_unit_group> group;
 			int i, lv, wx, wy;
 			int maxcount=0;
@@ -14286,7 +14326,7 @@ int skill_castend_map (map_session_data *sd, uint16 skill_id, const char *mapnam
 			if( lv > 4 ) lv = 4; // crash prevention
 
 			// check if the chosen map exists in the memo list
-			ARR_FIND( 0, lv, i, mapindex == p[i]->map );
+			ARR_FIND( 0, lv, i, strncmp( p[i]->map, mapname, sizeof( p[i]->map ) ) == 0 );
 			if( i < lv ) {
 				x=p[i]->x;
 				y=p[i]->y;
@@ -19425,6 +19465,7 @@ int skill_attack_area(struct block_list *bl, va_list ap)
 		case NPC_DARKNESSBREATH:
 		case NPC_FIREBREATH:
 		case NPC_ICEBREATH:
+		case NPC_ICEBREATH2:
 		case NPC_THUNDERBREATH:
 			return (int)skill_attack(atk_type,src,dsrc,bl,skill_id,skill_lv,tick,flag);
 		default:

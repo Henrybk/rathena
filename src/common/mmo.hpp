@@ -89,7 +89,7 @@ typedef uint32 t_itemid;
 #endif
 #define MAX_FAME 1000000000 ///Max fame points
 #define MAX_CART 100 ///Maximum item in cart
-#define MAX_SKILL 1454 ///Maximum skill can be hold by Player, Homunculus, & Mercenary (skill list) AND skill_db limit
+#define MAX_SKILL 1465 ///Maximum skill can be hold by Player, Homunculus, & Mercenary (skill list) AND skill_db limit
 #define DEFAULT_WALK_SPEED 150 ///Default walk speed
 #define MIN_WALK_SPEED 20 ///Min walk speed
 #define MAX_WALK_SPEED 1000 ///Max walk speed
@@ -363,6 +363,11 @@ struct point {
 	uint16 x,y;
 };
 
+struct s_point_str{
+	char map[MAP_NAME_LENGTH_EXT];
+	uint16 x,y;
+};
+
 struct startitem {
 	t_itemid nameid;
 	unsigned short amount;
@@ -589,7 +594,9 @@ struct mmo_charstatus {
 	uint32 mapip;
 	uint16 mapport;
 
-	struct point last_point,save_point,memo_point[MAX_MEMOPOINTS];
+	struct s_point_str last_point;
+	struct s_point_str save_point;
+	struct s_point_str memo_point[MAX_MEMOPOINTS];
 	struct s_skill skill[MAX_SKILL];
 
 	struct s_friend friends[MAX_FRIENDS]; //New friend system [Skotlex]
@@ -684,7 +691,7 @@ struct party_member {
 	uint32 char_id;
 	char name[NAME_LENGTH];
 	unsigned short class_;
-	unsigned short map;
+	char map[MAP_NAME_LENGTH_EXT];
 	unsigned short lv;
 	unsigned leader : 1,
 	         online : 1;
