@@ -537,6 +537,7 @@
 	export_constant(MF_NOPETCAPTURE);
 	export_constant(MF_NOBUYINGSTORE);
 	export_constant(MF_NODYNAMICNPC);
+	export_constant(MF_NOBANK);
 
 	/* setcell types */
 	export_constant(CELL_WALKABLE);
@@ -750,6 +751,8 @@
 	export_constant2("bAddEffOnSkill",SP_ADDEFF_ONSKILL);
 	export_constant2("bHealPower",SP_ADD_HEAL_RATE);
 	export_constant2("bHealPower2",SP_ADD_HEAL2_RATE);
+	export_constant2("bIgnoreResRaceRate",SP_SP_IGNORE_RES_RACE_RATE);
+	export_constant2("bIgnoreMResRaceRate",SP_SP_IGNORE_MRES_RACE_RATE);
 
 	export_constant2("bRestartFullRecover",SP_RESTART_FULL_RECOVER);
 	export_constant2("bNoCastCancel",SP_NO_CASTCANCEL);
@@ -960,6 +963,7 @@
 	export_constant2("Eff_Freezing",SC_FREEZING);
 	export_constant2("Eff_Heat",SC_BURNT);
 	export_constant2("Eff_Deepsleep",SC_DEEPSLEEP);
+	export_constant2("Eff_WhiteImprison",SC_WHITEIMPRISON);
 
 	export_constant2("SC_ALL",SC_NONE);
 
@@ -1867,6 +1871,28 @@
 	export_constant(SC_BEEF_RIB_STEW);
 	export_constant(SC_PORK_RIB_STEW);
 	export_constant(SC_WEAPONBREAKER);
+	export_constant(SC_TOXIN_OF_MANDARA);
+	export_constant(SC_GOLDENE_TONE);
+	export_constant(SC_TEMPERING);
+	export_constant(SC_GRADUAL_GRAVITY);
+	export_constant(SC_ALL_STAT_DOWN);
+	export_constant(SC_KILLING_AURA);
+	export_constant(SC_DAMAGE_HEAL);
+	export_constant(SC_IMMUNE_PROPERTY_NOTHING);
+	export_constant(SC_IMMUNE_PROPERTY_WATER);
+	export_constant(SC_IMMUNE_PROPERTY_GROUND);
+	export_constant(SC_IMMUNE_PROPERTY_FIRE);
+	export_constant(SC_IMMUNE_PROPERTY_WIND);
+	export_constant(SC_IMMUNE_PROPERTY_POISON);
+	export_constant(SC_IMMUNE_PROPERTY_SAINT);
+	export_constant(SC_IMMUNE_PROPERTY_DARKNESS);
+	export_constant(SC_IMMUNE_PROPERTY_TELEKINESIS);
+	export_constant(SC_IMMUNE_PROPERTY_UNDEAD);
+	export_constant(SC_RELIEVE_ON);
+	export_constant(SC_RELIEVE_OFF);
+	export_constant(SC_RUSH_QUAKE1);
+	export_constant(SC_RUSH_QUAKE2);
+	export_constant(SC_G_LIFEPOTION);
 
 #ifdef RENEWAL
 	export_constant(SC_EXTREMITYFIST2);
@@ -4192,6 +4218,10 @@
 	export_constant(RC2_TEMPLE_DEMON);
 	export_constant(RC2_ILLUSION_VAMPIRE);
 	export_constant(RC2_MALANGDO);
+	export_constant(RC2_EP172ALPHA);
+	export_constant(RC2_EP172BETA);
+	export_constant(RC2_EP172BATH);
+	export_constant(RC2_ILLUSION_TURTLE);
 	export_constant(RC2_MAX);
 
 	/* monster ai */
@@ -6746,6 +6776,8 @@
 	export_constant(IG_CLASS_SHADOW_SD_CUBE);
 	export_constant(IG_CLASS_SHADOW_PD_CUBE);
 	export_constant(IG_CLASS_SHADOW_EA_CUBE);
+	export_constant(IG_ENCHANT_STONE_BOX30);
+	export_constant(IG_ENCHANT_STONE_BOX31);
 
 	/* unit stop walking */
 	export_constant(USW_NONE);
@@ -9222,8 +9254,10 @@
 	export_constant(HAT_EF_QSCARABA);
 	export_constant(HAT_EF_FSTONE);
 	export_constant(HAT_EF_MAGICCIRCLE);
-	export_constant(HAT_EF_GODCLASS);
-	export_constant(HAT_EF_GODCLASS2);
+	export_deprecated_constant2("HAT_EF_GODCLASS",HAT_EF_BRYSINGGAMEN);
+	export_deprecated_constant2("HAT_EF_GODCLASS2",HAT_EF_MAGINGIORDE);
+	export_constant(HAT_EF_BRYSINGGAMEN);
+	export_constant(HAT_EF_MAGINGIORDE);
 	export_constant(HAT_EF_LEVEL99_RED);
 	export_constant(HAT_EF_LEVEL99_ULTRAMARINE);
 	export_constant(HAT_EF_LEVEL99_CYAN);
@@ -9330,10 +9364,28 @@
 	export_constant(HAT_EF_C_SAMBA_CARNIVAL);
 	export_constant(HAT_EF_POISON_MASTER);
 	export_constant(HAT_EF_C_SWIRLING_FLAME);
+	export_constant(HAT_EF_C_2021RTC_HEADSET_1_TW);
+	export_constant(HAT_EF_C_2021RTC_HEADSET_2_TW);
+	export_constant(HAT_EF_C_2021RTC_HEADSET_3_TW);
+	export_constant(HAT_EF_SUBJECT_AURA_WHITE_ALPHA);
+	export_constant(HAT_EF_GC_DARKCROW);
+	export_constant(HAT_EF_DIABOLUS_RING);
+	export_constant(HAT_EF_MAGICCIRCLE_BLUE_TW);
+	export_constant(HAT_EF_C_DISAPEAR_TIME_TW_2);
 	export_constant(HAT_EF_C_MELODY_WING);
 	export_constant(HAT_EF_C_SPOT_LIGHT);
 	export_constant(HAT_EF_C_ASTRA_BLESSING);
 	export_constant(HAT_EF_EFST_C_20TH_ANNIVERSARY_HAT);
+	export_constant(HAT_EF_SUBJECT_AURA_NAVY);
+	export_constant(HAT_EF_20TH_SCARF_J);
+	export_constant(HAT_EF_GHOST_FIRE);
+	export_constant(HAT_EF_SERPENT_SHADOW);
+	export_constant(HAT_EF_C_1ST_EVT_HAT_MSP);
+	export_constant(HAT_EF_C_1ST_EVT_BALLOON_MSP);
+	export_constant(HAT_EF_RABBIT_AURA);
+	export_constant(HAT_EF_ALICE_TEA);
+	export_constant(HAT_EF_C_DARK_LORD_CLOAK);
+	export_constant(HAT_EF_C_SAKURA_FUBUKI);
 
 	/* pet catch */
 	export_constant(PET_CATCH_UNIVERSAL);
@@ -9474,6 +9526,10 @@
 	export_constant(CPC_NAME);
 	export_constant(CPC_CHAR);
 	export_constant(CPC_ACCOUNT);
+
+	/* instance_warpall flags */
+	export_constant(IWA_NONE);
+	export_constant(IWA_NOTDEAD);
 
 	/* skill hit */
 	export_constant(DMG_SINGLE);
@@ -10050,6 +10106,7 @@
 	export_constant(SCF_REMOVEONUNEQUIPWEAPON);
 	export_constant(SCF_REMOVEONUNEQUIPARMOR);
 	export_constant(SCF_REMOVEONHERMODE);
+	export_constant(SCF_REQUIRENOWEAPON);
 
 	/* enchantgrades */
 	export_constant(ENCHANTGRADE_NONE);
@@ -10074,6 +10131,29 @@
 	export_constant(WOE_FIRST_EDITION);
 	export_constant(WOE_SECOND_EDITION);
 	export_constant(WOE_THIRD_EDITION);
+
+	/* homunculus view IDs */
+	export_constant(MER_LIF);
+	export_constant(MER_AMISTR);
+	export_constant(MER_FILIR);
+	export_constant(MER_VANILMIRTH);
+	export_constant(MER_LIF2);
+	export_constant(MER_AMISTR2);
+	export_constant(MER_FILIR2);
+	export_constant(MER_VANILMIRTH2);
+	export_constant(MER_LIF_H);
+	export_constant(MER_AMISTR_H);
+	export_constant(MER_FILIR_H);
+	export_constant(MER_VANILMIRTH_H);
+	export_constant(MER_LIF_H2);
+	export_constant(MER_AMISTR_H2);
+	export_constant(MER_FILIR_H2);
+	export_constant(MER_VANILMIRTH_H2);
+	export_constant(MER_EIRA);
+	export_constant(MER_BAYERI);
+	export_constant(MER_SERA);
+	export_constant(MER_DIETER);
+	export_constant(MER_ELEANOR);
 
 	#undef export_constant
 	#undef export_constant2

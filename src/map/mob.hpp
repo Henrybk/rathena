@@ -6,9 +6,9 @@
 
 #include <vector>
 
-#include "../common/database.hpp"
-#include "../common/mmo.hpp" // struct item
-#include "../common/timer.hpp"
+#include <common/database.hpp>
+#include <common/mmo.hpp> // struct item
+#include <common/timer.hpp>
 
 #include "status.hpp" // struct status data, struct status_change
 #include "unit.hpp" // unit_stop_walking(), unit_stop_attack()
@@ -219,7 +219,7 @@ public:
 
 struct s_mob_item_drop_ratio {
 	t_itemid nameid;
-	uint16 drop_ratio;
+	uint32 drop_ratio;
 	std::vector<uint16> mob_ids;
 };
 
@@ -300,7 +300,7 @@ struct s_map_drops{
 
 class MapDropDatabase : public TypesafeYamlDatabase<uint16, s_map_drops>{
 public:
-	MapDropDatabase() : TypesafeYamlDatabase( "MAP_DROP_DB", 1 ){
+	MapDropDatabase() : TypesafeYamlDatabase( "MAP_DROP_DB", 2 ){
 
 	}
 
@@ -331,7 +331,7 @@ struct mob_data {
 		unsigned int aggressive : 1; //Signals whether the mob AI is in aggressive mode or reactive mode. [Skotlex]
 		unsigned int steal_coin_flag : 1;
 		unsigned int soul_change_flag : 1; // Celest
-		unsigned int alchemist: 1;
+		unsigned int can_escape: 1;
 		unsigned int npc_killmonster: 1; //for new killmonster behavior
 		unsigned int rebirth: 1; // NPC_Rebirth used
 		unsigned int boss : 1;
