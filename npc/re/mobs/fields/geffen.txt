@@ -80,12 +80,12 @@ gef_fild03,44,133,3,3	monster	Green Plant	1080,1,180000,90000
 //==================================================
 // gef_fild04 - Geffen Field
 //==================================================
-gef_fild04,0,0	monster	Mandragora	1020,125,5000
-gef_fild04,0,0	monster	Lunatic	1063,25,5000
-gef_fild04,0,0	monster	Fabre	1007,25,5000
-gef_fild04,0,0	monster	Chonchon	1011,25,5000
-gef_fild04,224,82,5,2	monster	Green Plant	1080,3,360000,180000
-gef_fild04,152,82,5,2	monster	Green Plant	1080,3,360000,180000
+//gef_fild04,0,0	monster	Mandragora	1020,125,5000
+//gef_fild04,0,0	monster	Lunatic	1063,25,5000
+//gef_fild04,0,0	monster	Fabre	1007,25,5000
+//gef_fild04,0,0	monster	Chonchon	1011,25,5000
+//gef_fild04,224,82,5,2	monster	Green Plant	1080,3,360000,180000
+//gef_fild04,152,82,5,2	monster	Green Plant	1080,3,360000,180000
 
 //==================================================
 // gef_fild05 - Geffen Field
@@ -122,7 +122,7 @@ gef_fild06,0,0	monster	Shining Plant	1083,4,1800000,900000
 //==================================================
 // gef_fild07 - Geffen Field
 //==================================================
-gef_fild07,0,0	monster	Pupa	1008,134,5000
+gef_fild07,0,0	monster	Geographer	1368,150,5000
 gef_fild07,0,0	monster	Poring	1002,20,5000
 gef_fild07,0,0	monster	Fabre	1007,20,5000
 gef_fild07,0,0	monster	Chonchon	1011,20,5000
