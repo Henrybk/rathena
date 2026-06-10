@@ -334,6 +334,7 @@ que_ng,30,65,3	script	Kuuga Gai#nq	730,{
 			mes "agile as the wind, and as";
 			mes "quiet as the falling shadows.";
 			callfunc "Job_Change",Job_Ninja;
+			callfunc "F_GetPlatinumSkills";
 			set NINJ_Q,5;
 			delitem 7053,5; // Cyfar
 			delitem 1010,1; // Phracon

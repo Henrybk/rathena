@@ -371,6 +371,7 @@
 			next;
 			completequest 6002;
 			callfunc "Job_Change",Job_Taekwon;
+			callfunc "F_GetPlatinumSkills";
 			callfunc "F_ClearJobVar";
 			getitem 2101,1; // Guard[0]
 			mes "[Phoenix]";

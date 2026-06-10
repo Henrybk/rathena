@@ -181,6 +181,7 @@ que_ng,152,167,3	script	Master Miller	901,{
 			mes "power of the earth protect";
 			mes "you in all of your adventures~";
 			callfunc "Job_Change",Job_Gunslinger;
+			callfunc "F_GetPlatinumSkills";
 			set GUNS_Q,6;
 			completequest 6024;
 			if (checkre(0)) {

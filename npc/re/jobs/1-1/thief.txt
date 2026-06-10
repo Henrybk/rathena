@@ -165,6 +165,7 @@ moc_prydb1,42,133,2	script	Thief Guildsman#thief	118,{
 		mes "'"+strcharinfo(0)+".'";
 		mes "'For those who are ready, the moonlight shall open the way. Now you are fully ready, I now officially allow you to become a member of the Thief Guild.'";
 		callfunc "Job_Change",Job_Thief;
+		callfunc "F_GetPlatinumSkills";
 		set q_job_thief,0;
 		getitem 13041,1;	// N_Main_Gauche
 		next;

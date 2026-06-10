@@ -104,6 +104,7 @@ geffen_in,164,124,4	script	Mage Guildsman#mage	123,{
 			mes "'Welcome to the Mage Guild~'";
 			mes "Congratulations on becoming a member of the Mage Guild! Go for it!";
 			callfunc "Job_Change",Job_Mage;
+			callfunc "F_GetPlatinumSkills";
 			getitem 1639,1;	// N_Rod
 			close;
 		case 2:
